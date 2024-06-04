@@ -1,0 +1,25 @@
+id: onboarding
+version: "1.0.0-SNAPSHOT"
+specVersion: "0.8"
+name: "onboarding"
+description: "A workflow for onboarding applications to OCP cluster"
+annotations:
+  - "workflow-type/infrastructure"
+dataInputSchema:
+  failOnValidationErrors: true
+  schema: schemas/onboarding-input-schema.json
+functions:
+  - name: logInfo
+    type: custom
+    operation: "sysout:INFO"
+start: "StartState"
+states:
+  - name: "StartState"
+    type: "operation"
+    actions:
+      - name: logInput
+        functionRef:
+          refName: logInfo
+          arguments:
+            message: '"You entered " + .sampleText'
+    end: true
